@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { runAudit } from "@/lib/audit-engine/run-audit";
 
 import {
     auditSchema,
@@ -56,9 +57,11 @@ export function AuditForm() {
         saveAuditData(watchedValues);
     }, [watchedValues]);
 
-    const onSubmit = (data: AuditSchema) => {
-        console.log("AUDIT DATA:", data);
-    };
+   const onSubmit = (data: AuditSchema) => {
+  const results = runAudit(data);
+
+  console.log(results);
+};
 
     return (
         <form
